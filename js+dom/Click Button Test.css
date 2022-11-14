@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://picsum.circles/1920/1080/?blur=10');
+    background-repeat: no-repeat;
+}
+
+.main {
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.daohang {
+    padding: 5px;
+    width: auto;
+    height: 30px;
+}
+
+.daohang button {
+    float: left;
+    margin-right: 5px;
+    width: 115px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 15px;
+    color: rgb(187, 228, 255);
+    border: 1px solid rgb(159, 160, 94);
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px 2px rgba(255, 229, 191, 0.5) inset;
+    transition: all 0.3s;
+}
+
+.daohang button:hover {
+    background-color: rgba(107, 61, 88, 0.8);
+    /* font-weight: 700; */
+    color: rgb(255, 218, 187);
+    border: 1px solid rgb(255, 211, 225);
+    border-radius: 20px;
+    box-sizing: border-box;
+
+}
+
+.daohang button:last-child(4) {
+    margin-right: 0px;
+}
+
+.circle {
+    position: absolute;
+    left: 0px;
+    top: 50px;
+    width: 60px;
+    height: 60px;
+    background-color: pink;
+    background-image: linear-gradient(45deg,
+            pink,
+            skyblue);
+    border-radius: 50%;
+    transition: all 1s;
+    box-shadow: 0px 0px 50px -10px;
+}
+
+.circle:hover {
+    transform: rotateZ(360deg) scale(1.2);
+}
+
+.circle-chi-1 {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 15%;
+    background-color: rgb(197, 177, 201);
+    border-radius: 30%;
+}
+
+.circle-chi-2 {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+    height: 100%;
+    background-color: rgb(197, 177, 201);
+    border-radius: 30%;
+}
+
+.flash-animation {
+    position: absolute;
+    right: 0px;
+    top: 120px;
+    width: 200px;
+    height: 312px;
+    /* background-color: pink; */
+    background-image: url(https://s1.ax1x.com/2022/08/16/vwGLOx.png);
+    animation: play 1s steps(10) infinite,
+        run 3s infinite alternate;
+
+}
+ 
+@keyframes play {
+    form {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -2000px 0px;
+    }
+}
+
+@keyframes run {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-180%) scale(0.2);
+    }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //比较两个数中最大数
+        function _homework1() {
+            var inputNum1 = parseInt(prompt('Input Number1'));
+            var inputNum2 = parseInt(prompt('Input Number2'));
+
+            //if方式
+            // if (inputNum1>inputNum2){
+            //     alert('Max Number Is:'+ inputNum1);
+            // }else{
+            //     alert('Max Number Is:'+inputNum2);
+            // }
+
+            //三元表达式方式
+            alert('Max Number Is:' + (inputNum1 > inputNum2 ? inputNum1 : inputNum2));
+        }
+
+        //判断是否奇数偶数
+        function _homework2() {
+            var inputNum3 = prompt('Input Number:');
+            if (inputNum3 % 2 == 0) {
+                alert('Is 0,2,4,6,8......');
+            } else {
+                alert('Is 1,3,5,7,9.....');
+            }
+        }
+
+        //根据输入的数1-7，返回星期几
+        function _homework3() {
+            var inputNum4 = parseInt( prompt('Input Number:'));
+            if (inputNum4 >= 1 && inputNum4 <= 5) {
+                alert('星期' + inputNum4);
+            } else if (inputNum4 == 6) {
+                alert('周六');
+            } else if (inputNum4 == 7) {
+                alert('周末');
+            } else {
+                alert('Error Input!');
+            }
+        }
+        
+    </script>
+</head>
+
+<body>
+    <button onclick='_homework1()'>Button 1</button>
+    <button onclick='_homework2()'>Button 2</button>
+    <button onclick='_homework3()'>Button 3</button>
+</body>
+
+</html>

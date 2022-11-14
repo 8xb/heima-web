@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可拖动的登录框</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            cursor: default !important;
+            /*cursor是改变元素内光标样式，有很多种：
+            cursor:pointer;手
+            cursor: crosshair;十字准心 
+            cursor: auto;自动 
+            cursor: default;默认*/
+        }
+
+        p {
+            font-size: 35px;
+            color: red;
+        }
+
+        .logindiv {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 300px;
+            height: 180px;
+            transform: translate(-50%, -50%);
+            background-color: rgb(207, 207, 207);
+        }
+
+        .title {
+            /* background-color: skyblue; */
+            width: auto;
+            height: 50px;
+            background-color: rgb(68, 110, 145);
+        }
+
+        .title a {
+            float: right;
+            margin-right: 12px;
+            width: 50ox;
+            height: 50px;
+            font-size: 30px;
+            color: #ccc;
+            line-height: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .title a:hover {
+            color: red;
+        }
+
+        /* 账号密码开始 */
+        .userid {
+            position: relative;
+            /* background-color: red; */
+            width: auto;
+            height: 50px;
+        }
+
+        .userpwd {
+            position: relative;
+            /* background-color: yellow; */
+            width: auto;
+            height: 50px;
+        }
+
+        .userid label,
+        .userpwd label {
+            margin-left: 40px;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            color: rgb(58, 78, 102);
+        }
+
+        .userid input,
+        .userpwd input {
+            position: absolute;
+            /* left: 50%;
+            top: 50%;
+            margin-left: -75px;
+            margin-top: -12.5px; */
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            width: 150px;
+            height: 25px;
+            padding-left: 10px;
+            padding-right: 4px;
+            line-height: 25px;
+            /*行高必须和height高度一致，不然会偏移 */
+            font-size: 12px;
+            color: #999;
+            border: 1px solid #ccc;
+            outline-style: none;
+        }
+
+        /* 账号密码结束 */
+    </style>
+</head>
+
+<body>
+    <p></p>
+    <div class="logindiv">
+        <div class="title">
+            <a id="closebtn" href="javascript:;" class="fa fa-close"></a>
+        </div>
+        <div class=userid>
+            <label>账号：</label>
+            <input id="userid" type="text" value="邮箱/ID/手机号">
+        </div>
+        <div class="userpwd">
+            <label>密码：</label>
+            <input id="userpwd" type="text" value="密码">
+        </div>
+
+    </div>
+
+
+    <script>
+        // 创建 fps 面板展示元素
+        var fpsPanel = document.createElement("div");
+        fpsPanel.setAttribute("id", "fps");
+        fpsPanel.style.position = "fixed";
+        fpsPanel.style.right = "3px";
+        fpsPanel.style.top = "3px";
+        fpsPanel.style.color = "red";
+        fpsPanel.style.fontSize = "50px";
+        fpsPanel.style.ztitle = 10000;
+        // 将面板插入到 body
+        document.body.append(fpsPanel);
+        // fps 监测逻辑实现
+        var showFPS = (function () {
+            var requestAnimationFrame =
+                window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+            var e, pe, pid, fps, last, offset, step, appendFps;
+
+            fps = 0;
+            last = Date.now();
+            step = function () {
+                offset = Date.now() - last;
+                fps += 1;
+                if (offset >= 1000) {
+                    last += offset;
+                    appendFps(fps);
+                    fps = 0;
+                }
+                requestAnimationFrame(step);
+            };
+            appendFps = function (fps) {
+                // 打印 fps
+                console.log(fps + "FPS");
+                // 修改面板显示的值
+                fpsPanel.innerHTML = fps + "FPS";
+            };
+            step();
+        })();
+
+        //统计xy开始
+        //禁用浏览器默认右键和文本选取
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        })
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        })
+
+        document.addEventListener('mousemove', function (e) {
+            var p = document.querySelector('p')
+            p.innerHTML = 'x:' + e.clientX + '<br>y:' + e.clientY;
+
+        })
+        //统计xy结束
+
+        //input输入框开始
+        var user = document.getElementById('userid');
+        var pwd = document.getElementById('userpwd');
+        //user
+        user.onfocus = function () {
+            if (this.value === '邮箱/ID/手机号') {
+                this.value = '';
+            }
+        }
+        user.onblur = function () {
+            if (this.value === '') {
+                this.value = '邮箱/ID/手机号';
+            }
+        }
+        //pwd
+        pwd.onfocus = function () {
+            if (this.value === '密码') {
+                this.value = '';
+                this.type = 'password'
+            }
+        }
+        pwd.onblur = function () {
+            if (this.value === '') {
+                this.value = '密码';
+                this.type = 'text'
+            }
+        }
+        //input输入框结束
+        //鼠标拖动开始
+        var title = document.querySelector('.title');
+        var logindiv = document.querySelector('.logindiv');
+        var closebtn = document.querySelector('.closebtn');
+        title.addEventListener('mousedown', function (e) {
+            var x = e.clientX - logindiv.offsetLeft;
+            var y = e.clientY - logindiv.offsetTop;
+            document.addEventListener('mousemove', move);
+            function move(e) {
+                logindiv.style.left = e.clientX - x + 'px';
+                logindiv.style.top = e.clientY - y + 'px';
+            }
+            document.addEventListener('mouseup', function () {
+                document.removeEventListener('mousemove', move)
+            })
+        })
+
+        //鼠标拖动结束
+
+
+    </script>
+</body>
+
+</html>

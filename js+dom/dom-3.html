@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab切换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            position: relative;
+        }
+
+        ul {
+            position: absolute;
+            left: 25%;
+            display: flex;
+            width: 50vw;
+            height: 5vh;
+            list-style: none;
+            background-color: #ccc;
+        }
+
+        li {
+            flex: 1;
+            text-align: center;
+            line-height: 5vh;
+            border-bottom: 1px solid red;
+        }
+
+        .xz {
+            background-color: rgb(194, 159, 164);
+            border-bottom: 5px solid red;
+        }
+
+        .item {
+            position: absolute;
+            display: none;
+            top: 5vh;
+            left: 25%;
+            width: 50vw;
+            height: 30vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <ul>
+            <li class="xz">111</li>
+            <li>222</li>
+            <li>333</li>
+            <li>444</li>
+            <li>555</li>
+        </ul>
+        <div class="item">
+            111
+        </div>
+        <div class="item">
+            222
+        </div>
+        <div class="item">
+            333
+        </div>
+        <div class="item">
+            444
+        </div>
+        <div class="item">
+            555
+        </div>
+    </div>
+
+    <script>
+        //获取元素
+        var lis = document.querySelectorAll('li');
+        var items = document.querySelectorAll('.item');
+
+        for (i = 0; i < lis.length; i++) {
+            //添加自定义属性
+            lis[i].setAttribute('index', i);
+            //for循环绑定事件
+            lis[i].onclick = function () {
+                //设置点击后css
+                for (i = 0; i < lis.length; i++) {
+                    lis[i].className = '';
+                }
+                this.className = 'xz';
+                //设置点击后items显示对应
+                for (i = 0; i < items.length; i++) {
+                    items[i].style.display = 'none';
+                }
+                items[this.getAttribute('index')].style.display = 'block';
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // function getRandomIntInclusive(min, max) {
+        //     min = Math.ceil(min);
+        //     max = Math.floor(max);
+        //     return Math.floor(Math.random() * (max - min + 1)) + min;
+        // }
+        // for (i = 0; i <= 9; i++) {
+        //     console.log(getRandomIntInclusive(2.2, 4.8));
+        // }
+
+        // var arr = ['张三', '李四', '王五', '王六', '王七', '王八'];
+        // function getRandomName(min, max) {
+        //     min = Math.ceil(min);
+        //     max = Math.floor(max);
+        //     return Math.floor(Math.random() * (max - min + 1)) + min;
+        // }
+        // console.log(arr[getRandomName(0, arr.length - 1)]);
+
+        // function getdate() {
+        //     var date = new Date();
+        //     var h = date.getHours();
+        //     h = h < 10 ? '0' + h : h;
+        //     var m = date.getMinutes();
+        //     m = m < 10 ? '0' + m : m;
+        //     var s = date.getSeconds();
+        //     s = s < 10 ? '0' + s : s;
+        //     return h + ':' + m + ':' + s;
+        // }
+        // console.log(getdate());
+
+        var string1 = 'abaasdffggghhiiccjjkkgfddsssss3444343';
+        //字符串长度
+        console.log(string1.length);
+        //提取第0, 3, 5, 9个字符是多少
+        var num1 = [0, 3, 5, 9];
+        for (i = 0; i <= num1.length; i++) {
+            console.log(string1.charAt(num1[i]));
+        }
+        //查找指定字符i,c,b是否在以上字符中存在
+        var num2 = ['i', 'c', 'b', 'z'];
+        for (i = 0; i <= num2.length - 1; i++) {
+            if (string1.indexOf(num2[i]) !== -1) {
+                console.log('找到首个字符' + num2[i] + '，位置为' + string1.indexOf(num2[i]));
+            } else {
+                console.log('没有字符' + num2[i]);
+            }
+        }
+        //替换字符g为22，ss替换为b
+        var num3 = ['g', 'ss'];
+        var num4 = ['22', 'b'];
+        var num5 = '';
+        for (i = -0; i <= num3.length - 1; i++) {
+            if (string1.indexOf(num3[i]) !== -1) {
+                num5 = string1.replace(num3[i], num4[i])
+                console.log(string1 + '替换为' + num5);
+            }
+        }
+        
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

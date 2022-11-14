@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //小到大
+        var str = '';
+        for (var i = 1; i <= 9; i++) {
+            for (var j = 1; j <= i; j++) {
+                str += j + 'x' + i + '=' + i * j + '\t';
+            }
+            str += '\n';
+        }
+        console.log(str);
+
+        //大到小
+        var str = '';
+        for (var i2 = 1; i2 <= 9; i2++) {
+            for (var j2 = i2; j2 <= 9; j2++) {
+                str += i2 + 'x' + j2 + '=' + i2 * j2 + '\t';
+            }
+            str += '\n';
+        }
+        console.log(str);
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

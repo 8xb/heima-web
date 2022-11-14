@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Button Test</title>
+    <link rel="stylesheet" type="text/css" media="screen"
+        href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="./Click Button Test.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="daohang">
+            <button class="icon ion-android-mail" onclick="ck(1)"> Button1</button>
+            <button class="icon ion-android-bar" onclick="ck(2)"> Button2</button>
+            <button class="icon ion-android-image" onclick="ck(3)"> Button3</button>
+            <button class="icon ion-android-send" onclick="ck(4)"> Button4</button>
+        </div>
+        <div class="circle" onclick="ck(5)">
+            <div class="circle-chi-1"></div>
+            <div class="circle-chi-2"></div>
+        </div>
+        <div class="flash-animation">
+        </div>
+    </div>
+    <script>
+        function ck(a){
+            window.alert("Click Button "+a)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>增删留言板</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            margin: 0 auto;
+            width: 300px;
+        }
+
+        textarea {
+            resize: none;
+            outline-style: none;
+            height: 100px;
+            width: 200px;
+        }
+
+        ul {
+            list-style: none;
+            width: 200px;
+        }
+
+        li a {
+            float: right;
+            font-size: 12px;
+            color: red;
+        }
+
+        li button {
+            float: right;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <textarea placeholder="请输入留言！"></textarea>
+        <button id="send">发送</button>
+        <button id="delall">清空</button>
+        <ul>
+
+        </ul>
+    </div>
+
+    <script>
+        var text = document.querySelector('textarea');
+        var btnSend = document.getElementById('send');
+        var btnDelall = document.getElementById('delall');
+        var ul = document.querySelector('ul');
+        btnSend.onclick = function () {
+            if (text.value == '') {
+                alert('为空！请输入留言！');
+            } else {
+                var li = document.createElement('li');
+                //向后插入
+                // ul.appendChild(li);
+                //向前插入
+                ul.insertBefore(li, ul.children[0]);
+
+                // //添加删除按钮-超链接a
+                // li.innerHTML = text.value + "<a href='javascript:;'>删除</a>";
+
+                //添加删除按钮-button
+                li.innerHTML = text.value + "<button>删除</button>";
+
+                //删除
+                var btnDelli = ul.getElementsByTagName('button');
+                for (var i = 0; i < btnDelli.length; i++) {
+                    btnDelli[i].onclick = function () {
+                        ul.removeChild(this.parentNode);
+                    }
+                }
+            }
+        }
+
+        btnDelall.onclick = function () {
+            var btnDelli = ul.getElementsByTagName('button');
+            for (var i = 0; i < btnDelli.length; i++) {
+                ul.removeChild(btnDelli[i].parentNode);
+            }
+
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单全选取消全选</title>
+    <style>
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        th {
+            border: 1px solid #ccc;
+            background-color: skyblue;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input id="checkall" type="checkbox">
+                    </th>
+                    <th>2</th>
+                    <th>3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>555 77 854</td>
+                    <td>555 77 855</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>555 77 854</td>
+                    <td>555 77 855</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>555 77 854</td>
+                    <td>555 77 855</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>555 77 854</td>
+                    <td>555 77 855</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        //获取全选和单选
+        var checkall = document.getElementById('checkall');
+        var checkone = document.querySelector('tbody').getElementsByTagName('input');
+
+        //全选
+        checkall.onclick = function () {
+            for (i = 0; i < checkone.length; i++) {
+                checkone[i].checked = this.checked;
+            }
+        }
+
+        //单选1
+        for (i = 0; i < checkone.length; i++) {
+
+            checkone[i].onclick = function () {
+                //循环检查是否全被选中
+                var flag = true;
+                for (i = 0; i < checkone.length; i++) {
+                    if (!checkone[i].checked) {
+                        flag = false;
+                        break;//退出循环
+                    }
+                }
+                checkall.checked = flag;
+            }
+
+        }
+
+        //单选2
+        for (var i = 0; i < checkone.length; i++) {
+            checkone[i].onclick = function () {
+                console.log(this.checked);
+                if (checkone[0].checked && checkone[1].checked && checkone[2].checked && checkone[3].checked) {
+                    checkall.checked = true;
+                } else checkall.checked = false;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

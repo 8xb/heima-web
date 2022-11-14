@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+        * {
+            font-size: large;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn_get">get button</button>
+    <button id="btn_post">post button</button>
+
+    <script>
+        $(function () {
+
+            //$post('',{},function(){})
+            $.post('http://www.liulongbin.top:3006/api/addbook', {
+                author: '唐大爷',
+                bookname: '唐大爷自传',
+                publisher: 'Wellchy.LTD'
+            }, function (res, ok) {
+                console.log(res)
+                console.log(ok);
+            });
+
+            //$get('',{},function(){})
+            $.get('http://www.liulongbin.top:3006/api/getbooks', function (res, ok) {
+                console.log(res)
+                console.log(ok);
+            });
+
+            $('#btn_get').on('click', function () {
+                for (var i = 1; i <= 1; i++) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://www.liulongbin.top:3006/api/getbooks',
+                        // data: { id: 2 },
+                        success: function (res) {
+                            console.log(res);
+                        }
+                    })
+                }
+            })
+
+            $('#btn_post').on('click', function () {
+                for (var i = 1; i <= 1; i++) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://www.liulongbin.top:3006/api/addbook',
+                        data: {
+                            author: '唐大爷',
+                            bookname: '唐大爷自传',
+                            publisher: 'Well.LTD'
+                        },
+                        success: function (res) {
+                            console.log(res);
+                        }
+                    })
+                }
+            })
+
+
+
+        })
+    </script>
+</body>
+
+</html>

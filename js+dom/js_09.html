@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function Computer(yanse,zhongliang,pinpai,xinghao){
+            this.yanse = yanse;
+            this,zhongliang = zhongliang;
+            this.pinpai = pinpai;
+            this.xinghao = xinghao;
+            this.video = function(video){
+                console.log(video);
+            }
+            this.music = function(music){
+                console.log(music);
+            }
+            this.game = function(game){
+                console.log(game);
+            }
+        }
+        var computer01 = new Computer(
+            'yellow',
+            '2kg',
+            'asus',
+            'p250dl'
+        )
+        var computer02 = new Computer(
+            'red',
+            '2.2kg',
+            'dell',
+            'k64rt'
+        )
+        // for (k in computer01){
+        //     console.log(k);
+        //     console.log(computer01[k]);
+        // }
+        computer01.game('world of tank')
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

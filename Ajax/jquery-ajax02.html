@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/5.2.2/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.6.1/jquery.min.js"></script>
+    <!-- <script src="https://cdn.staticfile.org/bootstrap/5.2.2/js/bootstrap.bundle.min.js"></script> -->
+    <style>
+        body{
+            font-size: small;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 style="margin-bottom:0">添加新图书</h5>
+            </div>
+            <div class="card-body row">
+                <div class="input-group mb-3 col">
+                    <span class="input-group-text">书名</span>
+                    <input id="inBookName" type="text" class="form-control" placeholder="请输入书名">
+                </div>
+                <div class="input-group mb-3 col">
+                    <span class="input-group-text">作者</span>
+                    <input id="inAuthor" type="text" class="form-control" placeholder="请输入作者">
+                </div>
+                <div class="input-group mb-3 col">
+                    <span class="input-group-text">出版社</span>
+                    <input id="inPublisher" type="text" class="form-control" placeholder="请输入出版社">
+                </div>
+                <button id="btnAdd" class="btn btn-primary mb-3 col-1">添加</button>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>出版社</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tb"></tbody>
+        </table>
+    </div>
+
+    <script>
+        $(function () {
+            // 创建 fps 面板展示元素
+            var fpsPanel = document.createElement("div");
+            fpsPanel.setAttribute("id", "fps");
+            fpsPanel.style.position = "fixed";
+            fpsPanel.style.right = "3px";
+            fpsPanel.style.top = "3px";
+            fpsPanel.style.color = "red";
+            fpsPanel.style.fontSize = "50px";
+            fpsPanel.style.ztitle = 10000;
+            // 将面板插入到 body
+            document.body.append(fpsPanel);
+            // fps 监测逻辑实现
+            var showFPS = (function () {
+                var requestAnimationFrame =
+                    window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    window.oRequestAnimationFrame ||
+                    window.msRequestAnimationFrame ||
+                    function (callback) {
+                        window.setTimeout(callback, 1000 / 60);
+                    };
+                var e, pe, pid, fps, last, offset, step, appendFps;
+
+                fps = 0;
+                last = Date.now();
+                step = function () {
+                    offset = Date.now() - last;
+                    fps += 1;
+                    if (offset >= 1000) {
+                        last += offset;
+                        appendFps(fps);
+                        fps = 0;
+                    }
+                    requestAnimationFrame(step);
+                };
+                appendFps = function (fps) {
+                    // 打印 fps
+                    // console.log(fps + "FPS");
+                    // 修改面板显示的值
+                    fpsPanel.innerHTML = fps + "FPS";
+                };
+                step();
+            })();
+
+            //禁用浏览器默认右键和文本选取
+            document.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+            })
+            document.addEventListener('selectstart', function (e) {
+                e.preventDefault();
+            })
+
+            //查询模块，GET,获取服务器数据，拼接字符串，清除页面现有元素，添加元素，刷新数据到页面
+            getBookList();
+            //每2s请求一次
+            var timer = setInterval(function () {
+                getBookList();
+            }, 2000);
+
+            function getBookList() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://www.liulongbin.top:3006/api/getbooks',
+                    // data: { id: 1 },
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status !== 200) {
+                            return alert(res.msg)
+                        } else {
+                            var rows = []
+                            $.each(res.data, function (i, item) {
+                                rows.push('<tr><td>' + item.id + '</td><td>' + item.bookname + '</td><td>' + item.author + '</td><td>' + item.publisher + '</td><td><a id="delData" data-id="' + item.id + '" href="javascript:;">删除</a></td></tr>')
+                            })
+                            // console.log(rows);
+                            $('#tb').empty().append(rows.join(''))//清空后再添加
+                        }
+                    }
+                })
+            }
+
+            //添加模块，post，获取页面用户输入的数据，发送到服务器，成功后回调函数刷新数据到页面
+            $('#btnAdd').on('click', function () {
+                // console.log($('#inBookName').val());
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://www.liulongbin.top:3006/api/addbook',
+                    data: {
+                        author: $('#inAuthor').val(),
+                        bookname: $('#inBookName').val(),
+                        publisher: $('#inPublisher').val()
+                    },
+                    success: function (res) {
+                        // console.log(res);
+                        if (res.status !== 201) {
+                            return alert(res.msg)
+                        } else {
+                            getBookList();
+                        }
+                    }
+                })
+            })
+
+            //删除模块，代理方式为动态添加的元素绑定点击事件，通过自定义属性data-id删除对应id服务器数据,再重新刷新获取服务器数据列表
+            $('#tb').on('click', '#delData', function () {
+                // console.log($(this).attr('data-id'));
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://www.liulongbin.top:3006/api/delbook',
+                    data: {
+                        id: $(this).attr('data-id')
+                    },
+                    success: function (res) {
+                        // console.log(res);
+                        if (res.status !== 200) {
+                            return alert(res.msg)
+                        } else {
+                            getBookList();
+                        }
+                    }
+                })
+            })
+
+        })
+
+    </script>
+</body>
+
+</html>
