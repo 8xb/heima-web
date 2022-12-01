@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     console.log(req.body);
-    res.send(`get content!${req.body.photoUrls}`);
+    res.send(`get content!${req.body.name}`);
     // res.send(req.body);
 });
 
